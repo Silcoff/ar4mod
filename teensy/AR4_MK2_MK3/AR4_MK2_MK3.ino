@@ -1,3 +1,6 @@
+/* Compared to the firmware for AR4, The motor direction is inverted for all
+ * axes except for J4.
+ */
 #include <AccelStepper.h>
 #include <Encoder.h>
 #include <avr/pgmspace.h>
@@ -12,10 +15,11 @@ const char* VERSION = "0.0.1";
 
 const int STEP_PINS[] = {0, 2, 4, 6, 8, 10};
 const int DIR_PINS[] = {1, 3, 5, 7, 9, 11};
-const int LIMIT_PINS[] = {26, 27, 28, 29, 30, 31};
+const int LIMIT_PINS[] = {26, 27, 28, 32, 30, 31};
 
-const float MOTOR_STEPS_PER_DEG[] = {44.44444444, 55.55555556, 55.55555556,
-                                     42.72664356, 21.86024888, 22.22222222};
+// const float MOTOR_STEPS_PER_DEG[] = {44.44444444, 55.55555556, 55.55555556,
+//                                      49.77777777, 21.86024888, 22.22222222};
+const float MOTOR_STEPS_PER_DEG[] = {47.0889, 52.6667, 59.5357, 44.8889, 21.0466, 21.3333};
 const int MOTOR_STEPS_PER_REV[] = {400, 400, 400, 400, 800, 400};
 
 // set encoder pins
@@ -29,9 +33,11 @@ int ENC_MAX_AT_ANGLE_MIN[] = {1, 0, 1, 0, 0, 1};
 const float ENC_MULT[] = {10, 10, 10, 10, 5, 10};
 
 // define axis limits in degrees, for calibration
-int JOINT_LIMIT_MIN[] = {-170, -42, -89, -165, -105, -155};
-int JOINT_LIMIT_MAX[] = {170, 90, 52, 165, 105, 155};
+// int JOINT_LIMIT_MIN[] = {-170, -42, -89, -165, -105, -155};
+// int JOINT_LIMIT_MAX[] = {170, 90, 52, 165, 105, 155};
 
+int JOINT_LIMIT_MIN[] = {-184, -47, -90, -161, -100, -170};
+int JOINT_LIMIT_MAX[] = {150, 90, 62, 169, 100, 150};
 ///////////////////////////////////////////////////////////////////////////////
 // ROS Driver Params
 ///////////////////////////////////////////////////////////////////////////////
@@ -49,9 +55,9 @@ const int LIMIT_SWITCH_HIGH[] = {
     1, 1, 1, 1, 1, 1};  // to account for both NC and NO limit switches
 const int CAL_DIR[] = {-1, -1, 1,
                        -1, -1, 1};  // joint rotation direction to limit switch
-const int CAL_SPEED = 500;          // motor steps per second
+const int CAL_SPEED = 250;          // motor steps per second
 const int CAL_SPEED_MULT[] = {
-    1, 1, 1, 2, 1, 1};  // multiplier to account for motor steps/rev
+    2, 2, 1, 4, 2, 2};  // multiplier to account for motor steps/rev
 
 // speed and acceleration settings
 float JOINT_MAX_SPEED[] = {30.0, 30.0, 30.0, 30.0, 30.0, 30.0};  // deg/s
@@ -226,13 +232,13 @@ void stateTRAJ() {
   // initialise AccelStepper instance
   for (int i = 0; i < NUM_JOINTS; ++i) {
     stepperJoints[i] = AccelStepper(1, STEP_PINS[i], DIR_PINS[i]);
-    stepperJoints[i].setPinsInverted(true, false, false);  // DM542T CW
+    stepperJoints[i].setPinsInverted(false, false,
+                                     false);  // DM320T / DM332T --> CW
     stepperJoints[i].setAcceleration(JOINT_MAX_ACCEL[i] *
                                      MOTOR_STEPS_PER_DEG[i]);
     stepperJoints[i].setMaxSpeed(JOINT_MAX_SPEED[i] * MOTOR_STEPS_PER_DEG[i]);
     stepperJoints[i].setMinPulseWidth(10);
   }
-  stepperJoints[3].setPinsInverted(false, false, false);  // J4 DM320T CCW
 
   // start loop
   while (STATE == STATE_TRAJ) {
