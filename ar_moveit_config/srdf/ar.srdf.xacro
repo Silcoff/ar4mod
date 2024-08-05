@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="$(arg name)">
-  <xacro:arg name="include_gripper" default="true"/>
+  <xacro:arg name="include_gripper" default="False"/>
 
   <xacro:include filename="$(find ar_moveit_config)/srdf/ar_macro.srdf.xacro"/>
   <xacro:ar_srdf />

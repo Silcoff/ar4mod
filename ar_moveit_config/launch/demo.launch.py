@@ -249,5 +249,5 @@ def generate_launch_description():
         mongodb_server_node,
         joint_state_broadcaster_spawner,
         joint_controller_spawner,
-        gripper_controller_spawner,
+        # gripper_controller_spawner,
     ])
