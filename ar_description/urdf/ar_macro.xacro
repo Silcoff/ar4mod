@@ -21,7 +21,7 @@
         <inertia ixx="0.0039943" ixy="3.697E-07" ixz="-5.7364E-08" iyy="0.0014946" iyz="-0.00036051" izz="0.0042554"/>
       </inertial>
       <visual>
-        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <origin rpy="${pi/2} 0 0" xyz="0 0 0"/>
         <geometry>
           <mesh filename="file://$(find ar_description)/meshes/${robot_parameters['mesh_dir']}/base_link.STL"/>
         </geometry>
@@ -30,7 +30,7 @@
         </material>
       </visual>
       <collision>
-        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <origin rpy="${pi/2} 0 0" xyz="0 0 0"/>
         <geometry>
           <mesh filename="file://$(find ar_description)/meshes/${robot_parameters['mesh_dir']}/base_link.STL"/>
         </geometry>
@@ -59,11 +59,11 @@
       </collision>
     </link>
     <joint name="joint_1" type="revolute">
-      <origin rpy="${pi} 0 0" xyz="0 0 0"/>
+      <origin rpy="${pi/2} 0 0" xyz="0 0 0"/>
       <parent link="base_link"/>
       <child link="link_1"/>
-      <axis xyz="0 0 1"/>
-      <limit lower="${-170.0 / 180.0 * pi}" upper="${170.0 / 180.0 * pi}" effort="0" velocity="0.5"/>
+      <axis xyz="0 -1 0"/>
+      <limit lower="${-184.0 / 180.0 * pi}" upper="${150.0 / 180.0 * pi}" effort="0" velocity="0.5"/>
     </joint>
     <link name="link_2">
       <inertial>
@@ -88,11 +88,11 @@
       </collision>
     </link>
     <joint name="joint_2" type="revolute">
-      <origin rpy="1.5708 0 -1.5708" xyz="0 0.0642 -0.16977"/>
+      <origin rpy="0 0 0" xyz="0.06384 0.1736 0"/>
       <parent link="link_1"/>
       <child link="link_2"/>
       <axis xyz="0 0 -1"/>
-      <limit lower="${-42.0 / 180.0 * pi}" upper="${90.0 / 180.0 * pi}" effort="0.5" velocity="0.5"/>
+      <limit lower="${-47.0 / 180.0 * pi}" upper="${90.0 / 180.0 * pi}" effort="0.5" velocity="0.5"/>
     </joint>
     <link name="link_3">
       <inertial>
@@ -117,11 +117,11 @@
       </collision>
     </link>
     <joint name="joint_3" type="revolute">
-      <origin rpy="0 0 3.1416" xyz="0 -0.305 0.007"/>
+      <origin rpy="0 0 0" xyz="0 0.34997 0.0046"/>
       <parent link="link_2"/>
       <child link="link_3"/>
       <axis xyz="0 0 -1"/>
-      <limit lower="${-89.0 / 180.0 * pi}" upper="${52.0 / 180.0 * pi}" effort="0" velocity="0.5"/>
+      <limit lower="${-90.0 / 180.0 * pi}" upper="${62.0 / 180.0 * pi}" effort="0" velocity="0.5"/>
     </joint>
     <link name="link_4">
       <inertial>
@@ -146,11 +146,11 @@
       </collision>
     </link>
     <joint name="joint_4" type="revolute">
-      <origin rpy="1.5708 0 -1.5708" xyz="0 0 0.0"/>
+      <origin rpy="0 0 0" xyz="0 0 0.0"/>
       <parent link="link_3"/>
       <child link="link_4"/>
-      <axis xyz="0 0 -1"/>
-      <limit lower="${-1 * robot_parameters['j4_limit']}" upper="${robot_parameters['j4_limit']}" effort="0" velocity="0.5"/>
+      <axis xyz="1 0 0"/>
+      <limit lower="${-161.0 / 180.0 * pi}" upper="${169.0 / 180.0 * pi}" effort="0" velocity="0.5"/>
     </joint>
     <link name="link_5">
       <inertial>
@@ -175,11 +175,11 @@
       </collision>
     </link>
     <joint name="joint_5" type="revolute">
-      <origin rpy="${pi} 0 -1.5708" xyz="0 0 -0.22263"/>
+      <origin rpy="0 0 0" xyz="0.27435 0 0"/>
       <parent link="link_4"/>
       <child link="link_5"/>
-      <axis xyz="1 0 0"/>
-      <limit lower="${-105.0 / 180.0 * pi}" upper="${105.0 / 180.0 * pi}" effort="0" velocity="1.0"/>
+      <axis xyz="0 0 -1"/>
+      <limit lower="${-100.0 / 180.0 * pi}" upper="${100.0 / 180.0 * pi}" effort="0" velocity="1.0"/>
     </joint>
     <link name="link_6">
       <inertial>
@@ -204,11 +204,11 @@
       </collision>
     </link>
     <joint name="joint_6" type="revolute">
-      <origin rpy="0 0 3.1416" xyz="0.000 0 ${robot_parameters['l6_length']}"/>
+      <origin rpy="0 0 0" xyz="0.0384 0 0"/>
       <parent link="link_5"/>
       <child link="link_6"/>
-      <axis xyz="0 0 1"/>
-      <limit lower="${-1.0 * robot_parameters['j6_limit']}" upper="${robot_parameters['j6_limit']}" effort="0" velocity="1.0"/>
+      <axis xyz="1 0 0"/>
+      <limit lower="${-170.0 / 180.0 * pi}" upper="${150.0 / 180.0 * pi}" effort="0" velocity="1.0"/>
     </joint>
 
     <!-- center of the end effector mounting surface on link_6 -->
