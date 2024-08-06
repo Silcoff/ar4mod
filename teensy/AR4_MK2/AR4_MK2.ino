@@ -43,7 +43,8 @@ int JOINT_LIMIT_MAX[] = {150, 90, 62, 169, 100, 150};
 ///////////////////////////////////////////////////////////////////////////////
 
 // roughly equals 0, -6, 0, 0, 0, 0 degrees
-const int REST_ENC_POSITIONS[] = {75507, 20000, 49234, 70489, 11470, 34311};
+// const int REST_ENC_POSITIONS[] = {75507, 20000, 49234, 70489, 11470, 34311};
+const int REST_ENC_POSITIONS[] = {86643, 24753, 36912, 72271, 10523, 37777};
 enum SM { STATE_TRAJ, STATE_ERR };
 SM STATE = STATE_TRAJ;
 
