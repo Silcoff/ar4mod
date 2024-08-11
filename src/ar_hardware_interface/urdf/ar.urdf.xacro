@@ -3,7 +3,7 @@
   <xacro:arg name="serial_port" default="/dev/ttyACM0"/>
   <xacro:arg name="arduino_serial_port" default="/dev/ttyUSB0"/>
   <xacro:arg name="calibrate" default="True"/>
-  <xacro:arg name="include_gripper" default="true"/>
+  <xacro:arg name="include_gripper" default="false"/>
   <xacro:include filename="$(find ar_description)/urdf/ar_macro.xacro"/>
   <xacro:include filename="$(find ar_description)/urdf/ar.ros2_control.xacro"/>
   

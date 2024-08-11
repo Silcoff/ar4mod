@@ -3,10 +3,10 @@
   <xacro:macro name="ar_robot" params="
     parent
     *origin
-    robot_parameters_file
   ">
 
-    <xacro:property name="robot_parameters" value="${xacro.load_yaml(robot_parameters_file)}"/>
+    <!-- robot_parameters_file -->
+    <!-- <xacro:property name="robot_parameters" value="${xacro.load_yaml(robot_parameters_file)}"/> -->
 
     <joint name="base_joint" type="fixed">
       <xacro:insert_block name="origin" />
@@ -23,7 +23,7 @@
       <visual>
         <origin rpy="${pi/2} 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find ar_description)/meshes/${robot_parameters['mesh_dir']}/base_link.STL"/>
+          <mesh filename="file://$(find ar_description)/meshes/ar4/base_link.STL"/>
         </geometry>
         <material name="">
           <color rgba="1 1 0 1"/>
@@ -32,7 +32,7 @@
       <collision>
         <origin rpy="${pi/2} 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find ar_description)/meshes/${robot_parameters['mesh_dir']}/base_link.STL"/>
+          <mesh filename="file://$(find ar_description)/meshes/ar4/base_link.STL"/>
         </geometry>
       </collision>
     </link>
@@ -45,7 +45,7 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find ar_description)/meshes/${robot_parameters['mesh_dir']}/link_1.STL"/>
+          <mesh filename="file://$(find ar_description)/meshes/ar4/link_1.STL"/>
         </geometry>
         <material name="">
           <color rgba="1 1 0 1"/>
@@ -54,7 +54,7 @@
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find ar_description)/meshes/${robot_parameters['mesh_dir']}/link_1.STL"/>
+          <mesh filename="file://$(find ar_description)/meshes/ar4/link_1.STL"/>
         </geometry>
       </collision>
     </link>
@@ -74,7 +74,7 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find ar_description)/meshes/${robot_parameters['mesh_dir']}/link_2.STL"/>
+          <mesh filename="file://$(find ar_description)/meshes/ar4/link_2.STL"/>
         </geometry>
         <material name="">
           <color rgba="1 1 0 1"/>
@@ -83,7 +83,7 @@
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find ar_description)/meshes/${robot_parameters['mesh_dir']}/link_2.STL"/>
+          <mesh filename="file://$(find ar_description)/meshes/ar4/link_2.STL"/>
         </geometry>
       </collision>
     </link>
@@ -103,7 +103,7 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find ar_description)/meshes/${robot_parameters['mesh_dir']}/link_3.STL"/>
+          <mesh filename="file://$(find ar_description)/meshes/ar4/link_3.STL"/>
         </geometry>
         <material name="">
           <color rgba="1 1 0 1"/>
@@ -112,7 +112,7 @@
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find ar_description)/meshes/${robot_parameters['mesh_dir']}/link_3.STL"/>
+          <mesh filename="file://$(find ar_description)/meshes/ar4/link_3.STL"/>
         </geometry>
       </collision>
     </link>
@@ -132,7 +132,7 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find ar_description)/meshes/${robot_parameters['mesh_dir']}/link_4.STL"/>
+          <mesh filename="file://$(find ar_description)/meshes/ar4/link_4.STL"/>
         </geometry>
         <material name="">
           <color rgba="1 1 0 1"/>
@@ -141,7 +141,7 @@
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find ar_description)/meshes/${robot_parameters['mesh_dir']}/link_4.STL"/>
+          <mesh filename="file://$(find ar_description)/meshes/ar4/link_4.STL"/>
         </geometry>
       </collision>
     </link>
@@ -161,7 +161,7 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find ar_description)/meshes/${robot_parameters['mesh_dir']}/link_5.STL"/>
+          <mesh filename="file://$(find ar_description)/meshes/ar4/link_5.STL"/>
         </geometry>
         <material name="">
           <color rgba="1 1 0 1"/>
@@ -170,7 +170,7 @@
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find ar_description)/meshes/${robot_parameters['mesh_dir']}/link_5.STL"/>
+          <mesh filename="file://$(find ar_description)/meshes/ar4/link_5.STL"/>
         </geometry>
       </collision>
     </link>
@@ -190,7 +190,7 @@
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find ar_description)/meshes/${robot_parameters['mesh_dir']}/link_6.STL"/>
+          <mesh filename="file://$(find ar_description)/meshes/ar4/link_6.STL"/>
         </geometry>
         <material name="">
           <color rgba="1 1 0 1"/>
@@ -199,7 +199,7 @@
       <collision>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="file://$(find ar_description)/meshes/${robot_parameters['mesh_dir']}/link_6.STL"/>
+          <mesh filename="file://$(find ar_description)/meshes/ar4/link_6.STL"/>
         </geometry>
       </collision>
     </link>
