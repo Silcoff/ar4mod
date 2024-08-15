@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://wiki.ros.org/xacro" name="$(arg ar_model)">
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="ar4">
   <xacro:arg name="serial_port" default="/dev/ttyACM0"/>
   <xacro:arg name="arduino_serial_port" default="/dev/ttyUSB0"/>
   <xacro:arg name="calibrate" default="True"/>
@@ -10,17 +10,17 @@
   <link name="world" />
   <xacro:ar_robot
     parent="world"
-    robot_parameters_file="$(find ar_description)/config/$(arg ar_model).yaml"
   >
+    <!-- robot_parameters_file="$(find ar_description)/config/ar4.yaml" -->
     <origin xyz="0 0 0" rpy="0 0 0" />
   </xacro:ar_robot>
 
   <xacro:ar_ros2_control
-    name="$(arg ar_model)"
+    name="ar4"
     plugin_name="ar_hardware_interface/ARHardwareInterface"
     serial_port="$(arg serial_port)"
     calibrate="$(arg calibrate)"
-    joint_offset_parameters_file="$(find ar_hardware_interface)/config/joint_offsets/$(arg ar_model).yaml"
+    joint_offset_parameters_file="$(find ar_hardware_interface)/config/joint_offsets/ar4.yaml"
   />
 
   <xacro:if value="$(arg include_gripper)">
