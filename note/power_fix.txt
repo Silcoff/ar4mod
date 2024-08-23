@@ -1,0 +1,9 @@
+det er muligt at der ikke kommer nok strøm igennem usb til teensy da hver 
+encoder skal sende 20mA ud hvilket kræver 20mA ind.
+
+dette kan forsage at der sker et brownout(spændning er for lav til at kunne stole på cpu'en)
+
+fix er at sætte encoders på en seperate strømforsygning.
+:
+
+
