@@ -53,17 +53,17 @@ class ControlDebugger : public rclcpp::Node
     
     std::vector<std::string> position_errors_str;
     for (const auto &error : position_errors) {
-      position_errors_str.push_back(std::to_string(error));
+      position_errors_str.push_back(std::to_string(error*(180/3.14)));
     }
 
     std::vector<std::string> position_desired_str;
     for (const auto &desired : desired_positions) {
-      position_desired_str.push_back(std::to_string(desired));
+      position_desired_str.push_back(std::to_string(desired*(180/3.14)));
     }
 
     std::vector<std::string> position_actual_str;
     for (const auto &actual : actual_positions) {
-      position_actual_str.push_back(std::to_string(actual));
+      position_actual_str.push_back(std::to_string(actual*(180/3.14)));
     }
 
 
