@@ -1,6 +1,7 @@
 /* Compared to the firmware for AR4, The motor direction is inverted for all
  * axes except for J4.
  */
+// #define ENCODER_DO_NOT_USE_INTERRUPTS
 #include <AccelStepper.h>
 #include <Encoder.h>
 #include <avr/pgmspace.h>
@@ -69,7 +70,7 @@ char JOINT_NAMES[] = {'A', 'B', 'C', 'D', 'E', 'F'};
 int ENC_RANGE_STEPS[NUM_JOINTS];
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   for (int i = 0; i < NUM_JOINTS; ++i) {
     pinMode(STEP_PINS[i], OUTPUT);
