@@ -38,11 +38,11 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
-    ar_model_arg = DeclareLaunchArgument("ar_model",
-                                         default_value="ar4",
-                                         choices=["ar4", "ar4_mk3"],
-                                         description="Model of AR4")
-    ar_model_config = LaunchConfiguration("ar_model")
+    # ar_model_arg = DeclareLaunchArgument("ar_model",
+    #                                      default_value="ar4",
+    #                                      choices=["ar4", "ar4_mk3"],
+    #                                      description="Model of AR4")
+    # ar_model_config = LaunchConfiguration("ar_model")
 
     initial_joint_controllers = PathJoinSubstitution([
         FindPackageShare("ar_hardware_interface"), "config", "controllers.yaml"
@@ -55,9 +55,9 @@ def generate_launch_description():
             FindPackageShare("ar_description"), "urdf", "ar_gazebo.urdf.xacro"
         ]),
         " ",
-        "ar_model:=",
-        ar_model_config,
-        " ",
+        # "ar_model:=",
+        # ar_model_config,
+        # " ",
         "simulation_controllers:=",
         initial_joint_controllers,
     ])
@@ -91,14 +91,14 @@ def generate_launch_description():
         ],
     )
 
-    gripper_joint_controller_spawner_started = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=[
-            "gripper_controller", "-c", "/controller_manager",
-            "--controller-manager-timeout", "60"
-        ],
-    )
+    # gripper_joint_controller_spawner_started = Node(
+    #     package="controller_manager",
+    #     executable="spawner",
+    #     arguments=[
+    #         "gripper_controller", "-c", "/controller_manager",
+    #         "--controller-manager-timeout", "60"
+    #     ],
+    # )
 
     # Gazebo nodes
     gazebo = IncludeLaunchDescription(
@@ -118,11 +118,11 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        ar_model_arg,
+        # ar_model_arg,
         robot_state_publisher_node,
         joint_state_broadcaster_spawner,
         initial_joint_controller_spawner_started,
-        gripper_joint_controller_spawner_started,
+        # gripper_joint_controller_spawner_started,
         gazebo,
         gazebo_spawn_robot,
     ])
