@@ -24,10 +24,7 @@ class ControlDebugger : public rclcpp::Node
     void topic_callback(const std_msgs::msg::String::SharedPtr msg) const{
       using namespace ftxui;
        // Define the document
-      Element document =
-      hbox({
-        text(msg->data.c_str())   | border,
-      });
+      Element document = hbox({ text(msg->data.c_str())   | border, });
    
       auto screen = Screen::Create(Dimension::Full(),Dimension::Fit(document));
       Render(screen, document);
@@ -91,10 +88,7 @@ class ControlDebugger : public rclcpp::Node
 
 
   auto document = table.Render();
-      // Element document =
-      // hbox({
-      //   text(position_actual_str[3])   | border,
-      // });
+      // Element document = hbox({ text(position_actual_str[3])   | border, });
    
       auto screen = Screen::Create(Dimension::Fit(document));
       Render(screen, document);

@@ -93,6 +93,14 @@ def generate_launch_description():
         parameters=[robot_description],
     )
 
+    static_tf = Node(
+        package="tf2_ros",
+        executable="static_transform_publisher",
+        name="static_transform_publisher",
+        output="log",
+        arguments=["0.0", "0.0", "0.0", "0.0", "0.0", "0.0", "world", "base_link"],
+    )
+
     joint_state_broadcaster = Node(
         package="controller_manager",
         executable="spawner",
@@ -138,6 +146,7 @@ def generate_launch_description():
     #                           choices=["ar4", "ar4_mk3"],
     #                           description="Model of AR4"))
     ld.add_action(controller_manager_node)
+    ld.add_action(static_tf)
     ld.add_action(spawn_joint_controller)
     ld.add_action(gripper_controller_spawner)
     ld.add_action(robot_state_publisher_node)

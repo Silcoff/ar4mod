@@ -1,5 +1,21 @@
 ar_manipulator:
   kinematics_solver: kdl_kinematics_plugin/KDLKinematicsPlugin
+  # kinematics_solver: bio_ik/BioIKKinematicsPlugin
   kinematics_solver_search_resolution: 0.005
-  kinematics_solver_timeout: 0.005
+  kinematics_solver_timeout: 0.05
   kinematics_solver_attempts: 3
+  mode: gd_c_4
+  dpos: 0.001
+  drot: 0.001
+
+  # kinematics_solver: bio_ik/BioIKKinematicsPlugin
+  # kinematics_solver_search_resolution: 0.005
+  # kinematics_solver_timeout: 0.005
+  # kinematics_solver_attempts: 3
+  # bio_ik:
+  #   mode: position
+  #   avoid_joint_limits: true
+  #   joint_limit_weight: 1.0
+  #   minimize_joint_velocity: true
+  #   joint_velocity_weight: 0.1
+  #   enable_redundancy_resolution: true

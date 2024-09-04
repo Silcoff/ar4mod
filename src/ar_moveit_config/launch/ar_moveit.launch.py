@@ -1,34 +1,3 @@
-# Copyright (c) 2021 PickNik, Inc.
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions are met:
-#
-#    * Redistributions of source code must retain the above copyright
-#      notice, this list of conditions and the following disclaimer.
-#
-#    * Redistributions in binary form must reproduce the above copyright
-#      notice, this list of conditions and the following disclaimer in the
-#      documentation and/or other materials provided with the distribution.
-#
-#    * Neither the name of the {copyright_holder} nor the names of its
-#      contributors may be used to endorse or promote products derived from
-#      this software without specific prior written permission.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-# POSSIBILITY OF SUCH DAMAGE.
-
-#
-# Author: Denis Stogl
-
 import os
 import yaml
 
@@ -36,6 +5,8 @@ from ament_index_python.packages import get_package_share_directory
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
+from moveit_configs_utils import MoveItConfigsBuilder
+from launch_param_builder import ParameterBuilder
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import (
@@ -100,6 +71,14 @@ def generate_launch_description():
     ])
     robot_description = {"robot_description": robot_description_content}
 
+    # moveit_config = (
+    #     MoveItConfigsBuilder(robot_name="ar", package_name="ar_description")
+    #     .robot_description(file_path="home/carsten/documents/p6/orginial_ar/src/ar_description/urdf/ar.urdf.xacro")
+    #     .no_srdf()
+    #     .no_urdf()
+    #     .to_moveit_configs()
+    # )
+
     # MoveIt Configuration
     robot_description_semantic_content = Command([
         PathJoinSubstitution([FindExecutable(name="xacro")]),
@@ -107,7 +86,8 @@ def generate_launch_description():
         PathJoinSubstitution(
             [FindPackageShare("ar_moveit_config"), "srdf", "ar.srdf.xacro"]),
         " ",
-        "name:=ar",
+        "name:=",
+        ar_model_config,
         " ",
         "include_gripper:=",
         include_gripper,
@@ -184,9 +164,44 @@ def generate_launch_description():
             moveit_controllers,
             planning_scene_monitor_parameters,
             {
-                "use_sim_time": use_sim_time
+                "use_sim_time": use_sim_time,
             },
         ],
+    )
+
+    # Get parameters for the Servo node
+    servo_params = {
+        "moveit_servo":
+        load_yaml(
+            "ar_moveit_config",
+            os.path.join("config", "servo_config.yaml"),
+        )
+    }
+    acceleration_filter_update_period = {"update_period": 0.01}
+    planning_group_name = {"planning_group_name": "ar_manipulator"}
+    servo_node = Node(
+        package="moveit_servo",
+        executable="servo_node",
+        name="servo_node",
+        parameters=[
+            servo_params,
+            acceleration_filter_update_period,
+            # planning_group_name,
+            robot_description,
+            robot_description_semantic,
+            robot_description_kinematics,
+            robot_description_planning,
+            ompl_planning_pipeline_config,
+            trajectory_execution,
+            moveit_controllers,
+            planning_scene_monitor_parameters,
+            {
+                "use_sim_time": use_sim_time,
+                "use_gazebo": use_sim_time,
+                'use_intra_process_comms' : True
+            },
+        ],
+        output="screen",
     )
 
     # rviz with moveit configuration
@@ -207,5 +222,5 @@ def generate_launch_description():
         ],
     )
 
-    nodes_to_start = [move_group_node, rviz_node]
+    nodes_to_start = [ move_group_node, servo_node, rviz_node]
     return LaunchDescription(declared_arguments + nodes_to_start)
